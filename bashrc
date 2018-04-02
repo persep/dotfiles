@@ -61,9 +61,14 @@ GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWCOLORHINTS=true
 
+window_title='\[\e]0;\u@\h:\w\a\]'  #sets mintty windows title
+end_color='\[\e[00m\]'
+path_color='\[\e[0;94m\]'
+userhost_color='\[\e[0;92m\]'
+
 if [ "$color_prompt" = yes ]; then
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[00;92m\]\u@\h\[\033[00m\]:\[\033[00;94m\]\w\[\033[00m\]$(__git_ps1 ":\[\033[00;34m\](%s)")\[\033[00m\]\$ '
-    PROMPT_COMMAND='__git_ps1 "\[\033[0;92m\]\u@\h\[\033[00m\]:\[\033[0;94m\]\w\[\033[00m\]" "\\\$ "'
+    PROMPT_COMMAND='__git_ps1 "${window_title}${userhost_color}\u@\h${end_color}:${path_color}\w${end_color}" "\\\$ "'
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
