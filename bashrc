@@ -56,19 +56,8 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-# Git prompt
-GIT_PS1_SHOWDIRTYSTATE=true
-GIT_PS1_SHOWUNTRACKEDFILES=true
-GIT_PS1_SHOWCOLORHINTS=true
-
-window_title='\[\e]0;\u@\h:\w\a\]'  #sets mintty windows title
-end_color='\[\e[00m\]'
-path_color='\[\e[0;94m\]'
-userhost_color='\[\e[0;92m\]'
-
 if [ "$color_prompt" = yes ]; then
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[00;92m\]\u@\h\[\033[00m\]:\[\033[00;94m\]\w\[\033[00m\]$(__git_ps1 ":\[\033[00;34m\](%s)")\[\033[00m\]\$ '
-    PROMPT_COMMAND='__git_ps1 "${window_title}${userhost_color}\u@\h${end_color}:${path_color}\w${end_color}" "\\\$ "'
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -126,3 +115,22 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+#### Added by me
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWCOLORHINTS=true
+GIT_PS1_SHOWSTASHSTATE=true
+GIT_PS1_SHOWUPSTREAM="auto"
+
+path_color='\[\033[0;94m\]'                                                 
+userhost_color='\[\033[0;92m\]'
+end_color="\[\033[0m\]"
+venv_color="\[\033[0;33m\]"
+
+source ~/.git-completion.bash
+source ~/.git-prompt.sh
+
+PROMPT_COMMAND='__git_ps1 "${VIRTUAL_ENV:+($venv_color`basename $VIRTUAL_ENV`$end_color)\n}${userhost_color}\u@\h${end_color}:${path_color}\w${end_color}" "\\\$ "'
+
+
